@@ -1,15 +1,16 @@
 import sys
 import random
 
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
+from ui_file import Ui_MainWindow
 
-class MyWidget(QMainWindow):
+
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('ui.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.btn_create.clicked.connect(self.paint)
 
@@ -25,7 +26,10 @@ class MyWidget(QMainWindow):
         self.repaint()
 
     def draw_ellipse(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        r = random.randrange(0, 255)
+        g = random.randrange(0, 255)
+        b = random.randrange(0, 255)
+        qp.setBrush(QColor(r, g, b))
         radius = random.randrange(1, 150)
         qp.drawEllipse(200 - radius // 2, 200 - radius // 2, radius, radius)
 
